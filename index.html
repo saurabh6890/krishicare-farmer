@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KrishiCare</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><b>🌱 KrishiCare</b><span>Smart Farmer Assistant</span></header>
+<main>
+<section class="hero"><div><small>SMART FARMING PLATFORM</small><h1>Farmer Dashboard</h1><p>Connect farm records, weather and intelligent recommendations.</p></div>
+<button onclick="loadAll()">↻ Refresh</button></section>
+
+<section class="cards">
+<div class="card">🌡️ Temperature<strong id="temp">--</strong></div>
+<div class="card">💧 Soil Moisture<strong id="moisture">--</strong></div>
+<div class="card">🌧️ Rain Chance<strong id="rain">--</strong></div>
+<div class="card">🌾 Crop<strong id="crop">Wheat</strong></div>
+</section>
+
+<section class="two">
+<div class="panel"><h2>🤖 AI Recommendation</h2><p id="ai">Loading...</p><button class="primary" onclick="getAI()">Get Recommendation</button></div>
+<div class="panel"><h2>👨‍🌾 Farmer Profile</h2>
+<input id="name" placeholder="Farmer name"><input id="phone" placeholder="Phone (optional)">
+<input id="location" placeholder="Village / location"><select id="cropInput"><option>Wheat</option><option>Rice</option><option>Maize</option><option>Potato</option></select>
+<button class="primary" onclick="saveFarmer()">Save Farmer</button><p id="saveMsg"></p></div>
+</section>
+
+<section class="panel"><h2>📝 Field Observation</h2>
+<div class="row"><input id="farmerId" type="number" placeholder="Farmer ID"><input id="soil" type="number" placeholder="Soil moisture %"><input id="fieldTemp" type="number" placeholder="Temperature °C"></div>
+<input id="note" placeholder="Observation note"><button class="primary" onclick="saveObservation()">Save Observation</button><p id="obsMsg"></p></section>
+
+<section class="panel"><h2>🏗️ SIH System Architecture</h2>
+<div class="arch"><span>Frontend</span>→<span>REST API</span>→<span>FastAPI Backend</span>→<span>SQLite</span><br>
+<span>FastAPI</span>→<span>Weather Service</span> &nbsp; | &nbsp; <span>FastAPI</span>→<span>ML Model</span></div></section>
+</main><footer>KrishiCare • SIH Prototype</footer>
+<script src="app.js"></script></body></html>
