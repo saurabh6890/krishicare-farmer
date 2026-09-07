@@ -128,15 +128,50 @@ def load_model():
     return None
 
 @app.post("/api/ai/recommendation")
-def recommendation(soil_moisture: float, temperature: float, rain_probability: float=20):
-    # A small transparent prototype model/rule layer.
-    model=load_model()
-    prediction = model.predict(np.array([[soil_moisture, temperature, rain_probability]]))[0] if model else "Monitor field"
+def recommendation(
+    soil_moisture: float,
+    temperature: float,
+    rain_probability: float = 20,
+    N: float = 50,
+    P: float = 40,
+    K: float = 40,
+    humidity: float = 60,
+    ph: float = 6.5,
+    rainfall: float = 0
+):
+    model = load_model()
+
+    prediction = "Model unavailable"
+
+    if model:
+        try:
+            features = np.array([[
+                N, P, K, temperature, humidity, ph, rainfall
+            ]])
+
+            prediction = model.predict(features)[0]
+
+        except Exception as e:
+            prediction = "Prediction error"
+
     if soil_moisture < 30 and rain_probability < 50:
-        action="Check the field and consider irrigation based on crop needs and local conditions."
+        action = "Soil moisture is low. Check the field and consider irrigation based on crop needs."
     elif rain_probability >= 50:
-        action="Rain is relatively likely soon; check the field before irrigating."
+        action = "Rain is likely soon. Check the field before irrigating."
     else:
-        action="Continue monitoring soil moisture and crop condition."
-    return {"prediction":str(prediction),"action":action,
-            "disclaimer":"Prototype recommendation; verify with a qualified local agricultural expert."}
+        action = "Soil moisture looks reasonable. Continue monitoring the field."
+
+    return {
+        "prediction": str(prediction),
+        "action": action,
+        "inputs": {
+            "N": N,
+            "P": P,
+            "K": K,
+            "temperature": temperature,
+            "humidity": humidity,
+            "ph": ph,
+            "rainfall": rainfall
+        },
+        "disclaimer": "Prototype recommendation; verify with a qualified local agricultural expert."
+    }
