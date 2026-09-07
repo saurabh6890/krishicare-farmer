@@ -1,4 +1,4 @@
-const API="http://127.0.0.1:8000/api";
+const API="https://krishicare-farmer.onrender.com/api";
 let weather={temperature:31,rain_probability:20};
 
 async function loadWeather(){
