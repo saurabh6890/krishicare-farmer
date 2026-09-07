@@ -9,7 +9,7 @@ import numpy as np
 
 BASE = os.path.dirname(__file__)
 DB = os.path.join(BASE, "krishicare.db")
-MODEL = os.path.join(BASE, "crop_model.pkl")
+MODEL = os.path.join(BASE, "krishicare_crop_model.pkl")
 
 app = FastAPI(title="KrishiCare API", version="1.0")
 
